@@ -1,0 +1,162 @@
+﻿        /// <summary>
+        /// * 二分查找算法:
+        /// * 要求:有序,线性结构
+        /// * 时间复杂度O[log(n)]
+        /// * 循环实现
+        /// * middle = (low + high) / 2;
+        /// </summary>
+        /// <param name="arr"></param>
+        /// <param name="des"></param>
+        /// <returns></returns>
+        static int Binary_Search(int[] arr, int key)
+        {
+            int low = 0;
+            int high = arr.Length - 1;
+            while (low < high)
+            {
+                int middle = (low + high) / 2;
+                //先拿中间的值与查找的值比较,大于中间的值,说明查找的值索引在[low,middle)
+                if (key == arr[middle])
+                {
+                    return middle;
+                }
+                else if (key < arr[middle])
+                {
+                    high = middle - 1;
+                }
+                else
+                {
+                    high = middle + 1;
+                }
+            }
+
+            return -1;
+        }
+
+        /// <summary>
+        /// * 插值查找算法:
+        /// * 要求:有序,线性结构
+        /// * 时间复杂度O[log(n)]
+        /// * middle = low + (key - arr[low]) / (arr[high] - arr[low]) * (high - low)
+        /// </summary>
+        /// <param name="arr"></param>
+        /// <param name="des"></param>
+        /// <returns></returns>
+        static int InsertValue_Search(int[] arr, int key)
+        {
+            int low = 0;
+            int high = arr.Length - 1;
+            while (low < high)
+            {
+                int middle = low + (key - arr[low]) / (arr[high] - arr[low]) * (high - low);
+                //先拿中间的值与查找的值比较,大于中间的值,说明查找的值索引在[low,middle)
+                if (key == arr[middle])
+                {
+                    return middle;
+                }
+                else if (key < arr[middle])
+                {
+                    high = middle - 1;
+                }
+                else
+                {
+                    high = middle + 1;
+                }
+            }
+
+            return -1;
+        }
+
+        /// <summary>
+        /// * 斐波那契 查找:
+        /// * 要求:有序,线性结构
+        /// * 时间复杂度O[log(n)]
+        /// * middle = low + Fib[k - 1] - 1;
+        /// </summary>
+        /// <param name="arr"></param>
+        /// <param name="des"></param>
+        /// <returns></returns>
+        static int Fbonacci_Search(int[] arr, int n, int key)
+        {
+            int[] Fib = {0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 987, 1597, 2584, 4181, 6765,
+                                 10946, 17711, 28657, 46368, 75025, 121393, 196418, 317811, 514229, 832040, 1346269, 2178309, 3524578,
+                                 5702887, 9227465, 14930352, 24157817, 39088169, 63245986, 102334155, 165580141, 267914296,
+                                 433494437, 701408733, 1134903170, 1836311903, Int32.MaxValue
+                                };
+
+            int low = 0;
+            int high = arr.Length - 1;
+            int mid = 0;
+
+            //斐波那契分割数值下标
+            int k = 0;
+
+            //序列元素个数
+            int i = 0;
+            
+            //获取斐波那契分割数值下标
+            while (arr.Length > Fib[k] - 1)
+            {
+                k++;
+            }
+
+            //创建临时数组
+            int[] temp = new int[Fib[k] - 1];
+            Array.Copy(arr, temp, arr.Length);
+            //序列补充至f[k]个元素
+            //补充的元素值为最后一个元素的值
+            for (i = arr.Length; i < Fib[k] - 1; i++)
+            {
+                temp[i] = temp[high];
+            }
+
+#if DEBUG
+            foreach (var item in temp)
+            {
+                Console.Write(item + " ");
+            }
+            Console.WriteLine();
+#endif
+
+            while (low <= high)
+            {
+                // low：起始位置  
+                // 前半部分有f[k-1]个元素，由于下标从0开始 
+                // 则-1 获取 黄金分割位置元素的下标
+                mid = low + Fib[k - 1] - 1;
+
+                if (temp[mid] > key)
+                {
+                    // 查找前半部分，高位指针移动
+                    high = mid - 1;
+                    // （全部元素） = （前半部分）+（后半部分）
+                    //   f[k]  =  f[k-1] + f[k-1]
+                    // 因为前半部分有f[k-1]个元素，所以 k = k-1  
+                    k = k - 1;
+                }
+                else if (temp[mid] < key)
+                {
+                    // 查找后半部分，高位指针移动
+                    low = mid + 1;
+                    // （全部元素） = （前半部分）+（后半部分）
+                    //   f[k]  =  f[k-1] + f[k-1]
+                    // 因为后半部分有f[k-2]个元素，所以 k = k-2 
+                    k = k - 2;
+                }
+                else
+                {
+                    //如果为真则找到相应的位置
+                    if (mid <= high)
+                    {
+                        return mid;
+                    }
+                    else
+                    {
+                        //出现这种情况是查找到补充的元素
+                        //而补充的元素与high位置的元素一样
+                        return high;
+                    }
+                }
+            }
+            return -1;
+        }

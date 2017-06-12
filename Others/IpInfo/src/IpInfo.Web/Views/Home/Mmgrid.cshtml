@@ -1,0 +1,49 @@
+﻿<link href="../../Content/mmGrid/mmGrid.css" rel="stylesheet" type="text/css" />
+<link href="../../Content/mmGrid/mmPaginator.css" rel="stylesheet" type="text/css" />
+@{
+    ViewBag.Title = "Index_2";
+}
+<h2>
+    mmgrid</h2>
+<table id="table">
+</table>
+<div id="paginator">
+</div>
+@section scripts {
+    <script src="../../" type="text/javascript"></script>
+    <script src="../../Scripts/mmGrid/mmGrid.js" type="text/javascript"></script>
+    <script src="../../Scripts/mmGrid/mmPaginator.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //列
+            var cols = [
+            { title: '开始ip', name: '', width: 100, align: 'center', sortable: true, renderer: function (val, item, rowIndex) {
+                return item.StartIp + '(' + item.StartIpNumber + ')';
+            }
+            },
+            { title: '结束ip', name: '', width: 100, align: 'center', sortable: true, renderer: function (val, item, rowIndex) {
+                return item.EndIp + '(' + item.EndIpNumber + ')';
+            }
+            },
+            { title: '地址', name: 'Address', width: 120, align: 'center' },
+            { title: '编码', name: 'AreaCode', width: 60, align: 'center' },
+            { title: '查找结果', name: 'FoundResultStr', width: 60, align: 'center' },
+            { title: '备注', name: 'Note', width: 60, align: 'center' },
+        ];
+
+            //AJAX示例
+            $('#table').mmGrid({
+                cols: cols,
+                indexCol: true,
+                fullWidthRows: true,
+                height: 400,
+                url: '/api/IpRecord/MmGridGet',
+                method: 'get',
+                root: 'Data',
+                plugins: [
+                    $('#paginator').mmPaginator()
+                ]
+            });
+        });
+    </script>
+}

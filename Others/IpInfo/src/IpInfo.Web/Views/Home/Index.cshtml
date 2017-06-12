@@ -1,0 +1,106 @@
+﻿@model PagedList.IPagedList<IpInfo.Core.Models.IpRecord>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+
+@{
+    ViewBag.Title = "Ip查找";
+}
+
+@using (Html.BeginForm("Index", "Student", FormMethod.Get))
+{
+    <p style="margin: 10px;">
+        搜索: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="button" class="btn btn-default" value="搜索" onclick="find();" />
+        <input type="button" class="btn" style="display:none;" id="btnClear" value="清除搜索结果" onclick="$('#searchResult').html('');this.hide();" />
+    </p>
+}
+
+<p id="searchResult" />
+
+<table class="table">
+    <tr>
+        <th>
+            Id
+        </th>
+        <th>
+            @Html.ActionLink("开始ip", "Index", new { sortOrder = ViewBag.StartIpSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th>
+            @Html.ActionLink("结束ip", "Index", new { sortOrder = ViewBag.EndIpSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th>
+            地址
+        </th>
+        <th>
+            编码
+        </th>
+        <th>
+            查找结果
+        </th>
+        <th>
+            备注
+        </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @item.Id
+            </td>
+            <td>
+                @item.StartIp (@item.StartIpNumber)
+            </td>
+            <td>
+                @item.EndIp (@item.EndIpNumber)
+            </td>
+            <td>
+                @item.Address
+            </td>
+            <td>
+                @item.AreaCode
+            </td>
+            <td>
+                @item.FoundResultStr
+            </td>
+            <td>
+                @item.Note
+            </td>
+        </tr>
+    }
+</table>
+<br />
+第 @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount 页
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+
+<p style="border: 1px solid red; padding: 10px; margin-top: 20px;">
+    @(ViewBag.LoadFromCache ? "From cache" : "First read") - (@ViewBag.LoadTime ms) &nbsp;&nbsp; 共 @Model.TotalItemCount 条数据
+</p>
+@section scripts {
+    <script type="text/javascript">
+        var uri = "@Url.RouteUrl("SearchIp")";
+        $('#btnClear').hide();
+        function find() {
+            var ip = $('#SearchString').val();
+            if(!ip) {
+                alert("请输入ip");
+                return false;
+            }
+
+            $.post(uri, {ipAddr:ip})
+              .done(function (data) {
+                  if(data.success) {
+                    $('#searchResult').html(data.message);
+                  }
+                  else {
+                    alert(data.message);
+                  }
+                  $('#btnClear').show();
+              })
+              .fail(function (jqXHR, textStatus, err) {
+                  $('#searchResult').text('Error: ' + err);
+              });
+        }
+    </script>
+}
