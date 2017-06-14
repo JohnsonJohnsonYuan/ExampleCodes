@@ -1,3 +1,5 @@
+# Contents
+
 ## Find nth highest value
 
 Example table
