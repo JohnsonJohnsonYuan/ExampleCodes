@@ -1,5 +1,12 @@
 # Contents
 
+## Notes
+- make alias of subquery because query needs table object which we will get from making an alias to subquery. 
+```sql
+SELECT name FROM (SELECT name FROM agentinformation)        -- wrong
+SELECT name FROM (SELECT name FROM agentinformation) as a   -- correct 
+```
+
 ## Pagination
 
 ### mysql pagination
@@ -42,7 +49,7 @@ is equivalent to
         )
   ```
 
-### system table
+### sql server system table
 
 * [sys.tables](https://docs.microsoft.com/en-us/sql/relational-databases/system-catalog-views/sys-tables-transact-sql) Returns a row for each user table in SQL Server. `Prefer use this to select user table, avoid using type from sys.tables`
     ```sql
