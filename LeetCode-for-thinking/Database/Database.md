@@ -38,7 +38,7 @@ BEGIN
 END
 ```
 
-# Rank Scores
+## Rank Scores
 
 [Origin](https://leetcode.com/problems/rank-scores/#/description)
 
@@ -61,7 +61,7 @@ Score | Rank
 | 3.65  | 3    |
 | 3.50  | 4    |
 
-`Solution 1`:
+`Solution 1 (Group by: 1403ms)`:
 
 ```sql
 # 使用Aggregate function返回多列数据时必须使用GROUP BY(mysql 不报错, sql server会报错)

@@ -19,7 +19,6 @@
         <dd>We are open 24/7.</dd>
     </dl>
 
-
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script type="text/javascript">
         (function() {
@@ -27,13 +26,16 @@
             var dd = $('dd');
 
             // show the first <dd> -> hide <dd> from second
-            // the second <dd> is 4th child in <dl>
+            // the second <dd> is 4th child in <dl>, so we should write 4, not 2 here
             dd.filter(':nth-child(n+4)').addClass('hide');
 
+            
+            // it's better to use filter version => only listen one 'dl' object
+            // $('dt').on('mouseenter', function() {
+                
+            // });
+            
             $('dl').on('mouseover', 'dt', function() {
-
-            });
-            $('dt').on('mouseenter', function() {
                 //$(this).next().siblings('dd').hide();
                 //$(this).next().show(); // display <dd>
 
