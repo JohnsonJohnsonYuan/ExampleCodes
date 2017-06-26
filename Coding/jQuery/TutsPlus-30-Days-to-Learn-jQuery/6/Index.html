@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    
+    <h2>Click Me</h2>
+    <h2>Click Me</h2>
+    <h2>Click Me</h2>
+    <h2>Click Me</h2>
+    <h2>Click Me</h2>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript">
+        (function() {
+            $('h2').click(function() {
+                console.log("clicked");
+
+                var $this = $(this);
+
+                $this.appendTo(document.body);
+            });
+        })();
+    </script>
+</body>
+</html>
