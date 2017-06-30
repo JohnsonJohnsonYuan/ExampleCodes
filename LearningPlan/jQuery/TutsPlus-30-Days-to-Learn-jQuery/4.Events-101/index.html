@@ -1,0 +1,38 @@
+<html>
+    <meta charset="utf-8" />
+    <title>jQuery Events</title>
+    <link rel="stylesheet" href="day.css">
+<body>
+
+    <h1>My Websites</h1>
+
+    <button data-file="day">Day</button>
+    <button data-file="night">Night</button>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript">
+        // anonymouse function: execute immediately
+        (function() {
+
+            var link = $('link');
+
+            $('button').click(function() {
+                var $this = $(this);
+                var  stylesheet = $(this).data('file'); // $(this).attr('data-file');
+                
+                link.attr('href', stylesheet + '.css');
+
+                // $this.siblings('button').removeAttr('disabled');
+
+                // $this.attr('disabled', 'disabled');
+
+                $this
+                    .siblings('button')
+                    .removeAttr('disabled')         // current select the siblins
+                    .end()                          // return the button clicked
+                    .attr('disabled', 'disabled');
+            });
+        })();
+    </script>
+</body>
+</html>
