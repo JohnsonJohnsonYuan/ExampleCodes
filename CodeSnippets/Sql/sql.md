@@ -31,25 +31,35 @@ When use LIMIT with one argument, this means maximum number of rows to return fr
 is equivalent to
 `SELECT column1,column2,... FROM table LIMIT 0, count`
 
-## Create table
 
-### Create table if not exist
+## Index
 
-[Find original question from stackoverflow](https://stackoverflow.com/questions/6520999/create-table-if-not-exists-equivalent-in-sql-server)
+### create index
 
-* mysql can use `Create table If Not Exists`:
-    ```sql
-        Create table If Not Exists Employee (Id int, Salary int)
-    ```
+```sql
+CREATE INDEX [IndexName] ON [TableName]([Field1], [Field2], ...)
 
-* sql server equivalent:
-  ```sql
-    IF NOT EXISTS (SELECT * FROM sys.tables where name='Employee')
-        CREATE TABLE Employee (
-            Id INT,
-            Salary INT
-        )
-  ```
+-- e.g.
+CREATE INDEX [IxProduct3] ON [Product]([Category], [Name])
+```
+
+### get all indexes in table
+
+```sql
+exec sp_helpindex [TableName]
+```
+
+### delete index
+
+```sql
+if exists(select name from sysindexes  where name = '[index_name]')
+DROP INDEX table_name.index_name
+
+-- e.g.
+if exists(select name from sysindexes
+         where name = 'kk')
+drop index student.kk
+```
 
 ### sql server system table
 
