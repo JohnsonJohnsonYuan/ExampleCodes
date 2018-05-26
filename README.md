@@ -1,12 +1,16 @@
-# MyExampleCodes
+# ExampleCodes
+==============
 
-It's my code snippets when learning tutorials.
+Code collection when working.
 
-Including Languages:
-* jQuery (TutsPlus-30-Days-to-Learn-jQuery)
-* ...
+## Contents:
 
+* CodeSnippets: reusable code snippets in batch, c#, sql
 
+* LearningPlan
 
+* LeetCode(algothrim): test code in [leetcode](https://leetcode.com/) 
+
+* Others: code project
 
 [Reference for md formats](https://guides.github.com/features/mastering-markdown/)
