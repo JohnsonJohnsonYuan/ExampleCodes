@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<books>
+  <book>
+    <id>12</id>
+    <name>Book name</name>
+  </book>
+</books>

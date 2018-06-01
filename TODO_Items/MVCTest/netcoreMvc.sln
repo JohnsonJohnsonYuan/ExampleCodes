@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27004.2002
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "netcoreMvc", "..\..\..\WorkingDir\netcoreMvc\netcoreMvc.csproj", "{32102034-0E64-4564-B934-6F497FB95948}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVCTest", "MVCTest.csproj", "{D6ED4FDD-9615-430A-AC4F-2CE5C4EC0007}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NunitTest", "..\NunitTest\NunitTest.csproj", "{451AF7FD-CEEF-4108-BEA1-9BC4CB98940C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{32102034-0E64-4564-B934-6F497FB95948}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32102034-0E64-4564-B934-6F497FB95948}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32102034-0E64-4564-B934-6F497FB95948}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32102034-0E64-4564-B934-6F497FB95948}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D6ED4FDD-9615-430A-AC4F-2CE5C4EC0007}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6ED4FDD-9615-430A-AC4F-2CE5C4EC0007}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6ED4FDD-9615-430A-AC4F-2CE5C4EC0007}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6ED4FDD-9615-430A-AC4F-2CE5C4EC0007}.Release|Any CPU.Build.0 = Release|Any CPU
+		{451AF7FD-CEEF-4108-BEA1-9BC4CB98940C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{451AF7FD-CEEF-4108-BEA1-9BC4CB98940C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{451AF7FD-CEEF-4108-BEA1-9BC4CB98940C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{451AF7FD-CEEF-4108-BEA1-9BC4CB98940C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B228325A-3CE9-4BDD-83B6-4A62EA9080E0}
+	EndGlobalSection
+EndGlobal
