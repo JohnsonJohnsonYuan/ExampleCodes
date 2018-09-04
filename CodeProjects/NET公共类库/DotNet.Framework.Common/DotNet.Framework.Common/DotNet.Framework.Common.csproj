@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{38E3620E-8481-4CE3-80E5-6C1236BD4E51}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DotNet.Framework.Common</RootNamespace>
+    <AssemblyName>DotNet.Framework.Common</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SignAssembly>false</SignAssembly>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\DotNet.Framework.Common.XML</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="COM.Excel, Version=1.1.1606.17082, Culture=neutral">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Excel, Version=1.5.0.0, Culture=neutral">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Owc11, Version=11.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Web.UI.WebControls, Version=1.0.2.226, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="OWC10Chart, Version=1.0.2074.16784, Culture=neutral">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.XML" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Assistant.cs" />
+    <Compile Include="BindDataControl.cs" />
+    <Compile Include="Helper\ConfigHelper.cs" />
+    <Compile Include="Helper\ConvertHelper.cs" />
+    <Compile Include="Helper\CookieHelper.cs" />
+    <Compile Include="DataCache.cs" />
+    <Compile Include="Helper\ExcelHelper.cs" />
+    <Compile Include="DEncrypt\DEncrypt.cs" />
+    <Compile Include="DEncrypt\DESEncrypt.cs" />
+    <Compile Include="DEncrypt\HashEncode.cs" />
+    <Compile Include="DEncrypt\RSACryption.cs" />
+    <Compile Include="Helper\DirFileHelper.cs" />
+    <Compile Include="Helper\DownLoadHelper.cs" />
+    <Compile Include="FormulaCalculator.cs" />
+    <Compile Include="FormulaExpress.cs" />
+    <Compile Include="Helper\FTPHelper.cs" />
+    <Compile Include="HtmlPager.cs" />
+    <Compile Include="HttpProc.cs" />
+    <Compile Include="INIFile.cs" />
+    <Compile Include="Helper\JavaScriptHelper.cs" />
+    <Compile Include="Json\Json.cs" />
+    <Compile Include="Json\JsonData.cs" />
+    <Compile Include="Json\JsonHelper.cs" />
+    <Compile Include="Helper\MailHelper.cs" />
+    <Compile Include="MailPoper.cs" />
+    <Compile Include="MailSender.cs" />
+    <Compile Include="Mail\ConnectCommand.cs" />
+    <Compile Include="Mail\ConnectResponse.cs" />
+    <Compile Include="Mail\DeleCommand.cs" />
+    <Compile Include="Mail\ListCommand.cs" />
+    <Compile Include="Mail\ListResponse.cs" />
+    <Compile Include="Mail\MailHeaders.cs" />
+    <Compile Include="Mail\MailMessageEx.cs" />
+    <Compile Include="Mail\NoopCommand.cs" />
+    <Compile Include="Mail\PassCommand.cs" />
+    <Compile Include="Mail\Pop3Client.cs" />
+    <Compile Include="Mail\Pop3Command.cs" />
+    <Compile Include="Mail\Pop3Commands.cs" />
+    <Compile Include="Mail\Pop3Exception.cs" />
+    <Compile Include="Mail\Pop3ListItem.cs" />
+    <Compile Include="Mail\Pop3Response.cs" />
+    <Compile Include="Mail\Pop3Responses.cs" />
+    <Compile Include="Mail\Pop3State.cs" />
+    <Compile Include="Mail\QuitCommand.cs" />
+    <Compile Include="Mail\RetrCommand.cs" />
+    <Compile Include="Mail\RetrResponse.cs" />
+    <Compile Include="Mail\RsetCommand.cs" />
+    <Compile Include="Mail\Stat.cs" />
+    <Compile Include="Mail\StatCommand.cs" />
+    <Compile Include="Mail\StatResponse.cs" />
+    <Compile Include="Mail\TopCommand.cs" />
+    <Compile Include="Mail\UserCommand.cs" />
+    <Compile Include="Helper\MediaHandlerHelper.cs" />
+    <Compile Include="MessageBox.cs" />
+    <Compile Include="Mime\MediaTypes.cs" />
+    <Compile Include="Mime\MimeEntity.cs" />
+    <Compile Include="Mime\MimeHeaders.cs" />
+    <Compile Include="Mime\MimeReader.cs" />
+    <Compile Include="Mime\QuotedPrintableEncoding.cs" />
+    <Compile Include="MySecurity.cs" />
+    <Compile Include="Helper\NetHelper.cs" />
+    <Compile Include="OWCChart11.cs" />
+    <Compile Include="PageValidate.cs" />
+    <Compile Include="Helper\PicDealHelper.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QueryString.cs" />
+    <Compile Include="Helper\RandomHelper.cs" />
+    <Compile Include="Helper\RegexHelper.cs" />
+    <Compile Include="Helper\RmbHelper.cs" />
+    <Compile Include="Helper\SessionHelper.cs" />
+    <Compile Include="Helper\StringHelper.cs" />
+    <Compile Include="Helper\SysHelper.cs" />
+    <Compile Include="Helper\TimeHelper.cs" />
+    <Compile Include="Helper\IpHelper.cs" />
+    <Compile Include="UrlOper.cs" />
+    <Compile Include="ValidateImg.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Helper\WebSitePathHelper.cs" />
+    <Compile Include="Helper\XmlHelper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Lib\COM.Excel.dll" />
+    <Content Include="Lib\Excel.dll" />
+    <Content Include="Lib\Microsoft.Office.Interop.Owc11.dll" />
+    <Content Include="Lib\Microsoft.Web.UI.WebControls.dll" />
+    <Content Include="Lib\OWC10Chart.dll" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
