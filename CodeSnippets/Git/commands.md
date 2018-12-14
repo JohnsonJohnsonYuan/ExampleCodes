@@ -3,10 +3,17 @@
 ## Branch
 
 - Create branch and switch to it:
-> git checkout -b iss53
+> git checkout -b iss53 (equals git branch iss53, git checkout iss53)
+
+- branch list
+> git branch (local list)
+> git branch -r (remote list)
 
 - delete branch
 > git branch -d hotfix
+
+- delete remote branch
+> git push origin --delete hotfix
 
 ## Log
 
