@@ -1,6 +1,9 @@
 MongoDBIntIdGenerator
 =====================
 
+园项目地址：https://github.com/alexjamesbrown/MongDBIntIdGenerator
+原项目引用mongodb 驱动较旧(mongocsharpdriver)， 本次修改引用了新的Mongodb c#驱动(MongoDB.Driver.Core, MongoDB.Bson)
+
 MongoDB Sequential integer Id Generator - Uses findAndModify to create sequential id's
 
 Designed to provide sequential int IDs for documents, using the method outlined here: <http://www.alexjamesbrown.com/blog/development/mongodb-incremental-ids/>
