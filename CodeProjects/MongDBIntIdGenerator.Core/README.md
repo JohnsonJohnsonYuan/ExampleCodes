@@ -32,13 +32,19 @@ Some unit tests are included, however this is not yet tested on scale, with repl
     }
 
 ### Id Generators(当id属性为空时才调用IIdGenerator.GenerateId方法)
+
+    IIdGenerator 方法IsEmpty, ConvertToInt, 当IsEmpty返回true时, 才调用GenerateId给id赋值
+
+    Int32IdGenerator 可以在IsEmpty中修改为<=0, 当传入负值时也会创建id
+    如果接口默认定义传-1表示新建, 如果不增加<=0判断, 会直接创建id=-1的数据, 当插入第二条id=-1数据是会报duplicate key error collection错误
+
     When you Insert a document, the driver checks to see if the Id member has been assigned a value and, if not, generates a new unique value for it. Since the Id member can be of any type, the driver requires the help of an IIdGenerator to check whether the Id has a value assigned to it and to generate a new value if necessary. The driver has the following Id generators built-in:
 
     * ObjectIdGenerator
     * StringObjectIdGenerator
     * GuidGenerator
     * CombGuidGenerator
-    * NullIdChecker
+    * NullIdChecker(GenerateId方法直接throw, 当id为null时会报错，达到检测目的)
     * ZeroIdChecker<T>
     * BsonObjectIdGenerator
 
