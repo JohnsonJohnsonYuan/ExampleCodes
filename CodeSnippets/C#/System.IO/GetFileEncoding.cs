@@ -38,10 +38,12 @@ public static Encoding GetEncoding(string filename)
 public static Encoding GetEncoding(Stream stream)
 {
     // Read the BOM
-    var bom = new char[4];
+    var bom = new byte[4];
     using (var reader = new StreamReader(stream))
     {
-        reader.Read(bom, 0, 4);
+		// A StreamReader is for text, use the BaseStream
+		// StreamReader.Read参数为char类型, 不能读取byte类型
+        reader.BaseStream.Read(bom, 0, 4);
     }
 
     // Analyze the BOM
