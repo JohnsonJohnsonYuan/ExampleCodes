@@ -371,14 +371,14 @@ namespace OperaHtmlParser
             //ExportHelper.ExportExcel("data.xlsx", result);
 
             // // 导出歌词
-            //ExportHelper.ExportLyricToWord(result);
+            ExportHelper.ExportLyricToWord(result);
             // 下载封面图片，MP3
             //ExportHelper.DownadMp3AndMp4(result);
             
             //return;
 
             // 生成MP3标签
-            ExportHelper.GenerateTagInfo(result);
+            //ExportHelper.GenerateTagInfo(result);
         }
 
         /// <summary>

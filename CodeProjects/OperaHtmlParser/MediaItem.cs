@@ -10,6 +10,10 @@ namespace OperaHtmlParser
         public string Title { get; set; }
         public string Url { get; set; }
         public string PublishTime { get; set; }
+        /// <summary>
+        /// 艺术家介绍
+        /// </summary>
+        /// <value></value>
         public string Description
         {
             get

@@ -466,6 +466,8 @@ namespace OperaHtmlParser
                 Directory.CreateDirectory(downloadDir);
             }
 
+            #region 每个专辑一个歌词文件
+            /*
             foreach (var item in sheetItems)
             {
                 // 每个专辑一个唱词文件
@@ -489,26 +491,40 @@ namespace OperaHtmlParser
                     }
                 }
             }
+            */
+            #endregion
 
             #region 所有专辑合并成一个文件
 
-            List<string> mergeFiles = new List<string>();
+            // 全部的歌词
+            var allLyricDoc = new XWPFDocument();
+            allLyricDoc.GetStyles().SetStyles(templateStyle);
 
             foreach (var item in sheetItems)
             {
                 // TODO : 前面已经创建过文件
                 var subDir = Path.Combine(downloadDir, item.Name);
 
+                if (!Directory.Exists(subDir))
+                {
+                    Directory.CreateDirectory(subDir);
+                }
+
                 try
                 {
+                    // 每个分类(2018年出品-京剧, 2019年出品-京剧)一个歌词文件
                     var fileName = Path.Combine(subDir, "_所有唱词_" + item.Name + ".docx");
-                    mergeFiles.Add(fileName);
+
                     using (FileStream fs = new FileStream(fileName, FileMode.OpenOrCreate))
                     {
                         var doc = new XWPFDocument();
                         doc.GetStyles().SetStyles(templateStyle);
 
+                        // 当前分类下歌词
                         WriteToDoc(doc, item);
+
+                        // 全部歌词
+                        WriteToDoc(allLyricDoc, item);
 
                         doc.Write(fs);
                     }
@@ -517,6 +533,13 @@ namespace OperaHtmlParser
                 {
                     continue;
                 }
+            }
+
+            // 保存全部歌词
+            var allLyricFilePath = Path.Combine(downloadDir, "所有唱词.docx");
+            using (FileStream fs = new FileStream(allLyricFilePath, FileMode.OpenOrCreate))
+            {
+                allLyricDoc.Write(fs);
             }
             #endregion
         }
@@ -540,34 +563,41 @@ namespace OperaHtmlParser
         private static void WriteMedia(XWPFDocument doc, MediaItem media)
         {
             var p2 = doc.CreateParagraph();
-            p2.Style = "Heading2";
+            p2.Style = "Heading2";  // 专辑名
             XWPFRun r2 = p2.CreateRun();
             // r2.FontSize = 14;
             // r2.IsBold = true;
             r2.SetText($"{media.Title}");
-            //doc.CreateParagraph().CreateRun().SetText(media.Url);
+            // doc.CreateParagraph().CreateRun().SetText(media.Url);
+            doc.CreateParagraph().CreateRun().SetText(media.Description);
+            doc.CreateParagraph().CreateRun().SetText("");
 
             foreach (var mp3Item in media.Mp3Items)
             {
-                var mp3Run = doc.CreateParagraph();
-                // mp3Run.Style = "Heading3"; // 暂时不生成，否则目录太多
-                var title = mp3Run.CreateRun();
+                var lyricTitlePara = doc.CreateParagraph();
+                lyricTitlePara.Style = "LyricTitle";
+                var title = lyricTitlePara.CreateRun();
                 title.SetText(mp3Item.Title);
-                title.SetColor("#FA6922");
-                title.FontSize = 12;
-                title.IsBold = true;
+                //title.SetColor("#FA6922");
+                //title.FontSize = 12;
+                //title.IsBold = true;
 
                 if (!string.IsNullOrEmpty(mp3Item.LyricTitle))
                 {
-                    var lyricTitle = doc.CreateParagraph().CreateRun();
+                    // 绿色歌词标题
+                    var p4 = doc.CreateParagraph();
+                    p4.Style = "LyricInfo";
+                    var lyricTitle = p4.CreateRun();
                     lyricTitle.SetText(mp3Item.LyricTitle);
-                    lyricTitle.SetColor("#006400");
-                    lyricTitle.IsBold = true;
+                    //lyricTitle.SetColor("#006400");
+                    //lyricTitle.IsBold = true;
                 }
 
                 if (!string.IsNullOrEmpty(mp3Item.Lyric))
                 {
-                    doc.CreateParagraph().CreateRun().SetText(mp3Item.Lyric);
+                    var lyricPara = doc.CreateParagraph();
+                    lyricPara.Style = "Lyric";
+                    lyricPara.CreateRun().SetText(mp3Item.Lyric);
                 }
 
                 // if (!string.IsNullOrEmpty(mp3Item.Url))
