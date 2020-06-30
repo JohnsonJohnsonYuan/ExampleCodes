@@ -8,7 +8,7 @@ from threading import Thread
 import json
 
 """
-下载评书网站https://www.ishuyin.com/下某个专辑下所有MP3
+下载评书网站https://www.ysts8.net/Yshtml下某个专辑下所有MP3
 用到的包:
     requests: 请求返回html
     lxml: xpath 查找
@@ -16,10 +16,17 @@ import json
 getDownloadItems方法中配置要下载的播放列表
 """
 
+hostUrl = "https://www.ysts8.net/"
+playlistUrl = hostUrl + "/Yshtml/Ys6536.html" # 单田芳 大明英烈(全180回)全集
+
 def getContent(url):
-    r = requests.get(url)
-    r.encoding = "utf-8"
-    return r.text
+    try:
+        print(url)
+        r = requests.get(url)
+        r.encoding = "utf-8"
+        return r.text
+    except:
+        print(url + '读取错误')
 
 def getETree(url):
     text = getContent(url)
@@ -39,26 +46,38 @@ def decryptDownloadUrl(url):
     return result
 
 """
-解析要下载的MP3
+缓存要下载的MP3文件名, 地址到json文件中
+maxCount: 最多缓存个数, 可用于测试
+refresh: true删除原文件重新更新
+
+返回key为文件名, value为下载地址
 """
-def getDownloadItems(cachePath, refresh = False):
+def cacheDownloadUrls(cachePath, maxCount, refresh = False):
         if (os.path.exists(cachePath) and os.path.isfile(cachePath)):
             if not refresh:
+                print('读取缓存文件' + cachePath)
                 return json.load(open(cachePath, 'r'))
             else:
+                print('删除缓存文件' + cachePath)
                 os.remove(cachePath)
 
-        mainPage = getETree("https://www.ishuyin.com/show-1823.html")
-        urllist = mainPage.xpath("//div[@class='box'][2]/a/@href")
+        mainPage = getETree(playlistUrl)
+        #播放列表页面中每个MP3播放地址
+        urllist = mainPage.xpath("//div[@class='ny_l']/ul//a/@href")
         
         downloadItems = {}
         logLines = []
         for (i, url) in enumerate(urllist):
+            # max limit
+            if (not maxCount) and (i+1) > maxCount:
+                return
+
             print("保存第%s个文件下载地址" % (i+1))
-            html = getETree('https://www.ishuyin.com/' + url)
-            encryptDownloadUrl = html.xpath("//a[@id='urlDown']/@href")
+            html = getETree(hostUrl + url) # mp3播放页面地址
+            encryptDownloadUrl = html.xpath("//a[@id='jp_audio_0']/@href")
             if (len(encryptDownloadUrl) == 1):
-                downloadUrl = decryptDownloadUrl(encryptDownloadUrl[0])
+                #downloadUrl = decryptDownloadUrl(encryptDownloadUrl[0])
+                downloadUrl = encryptDownloadUrl[0]
                 fileName = "%03d" % (i+1) + ".mp3"
                 downloadItems[fileName] = downloadUrl
                 logLines.append("%3d\t%s\n" % ((i+1), downloadUrl))
@@ -102,7 +121,7 @@ def download_link(directory, link, fileName = None):
     with download_path.open('wb') as f:
         r = requests.get(link)
         f.write(r.content)
-    logger.info('Downloaded %s', link)
+    #logger.info('Downloaded %s', link)
 
 """
 生成下载文件夹
@@ -115,11 +134,13 @@ def setup_download_dir(dirName):
 
 #generateDownloadFile("test.csv")
 def main():
-    ts = time()
+    starttime = time.time()
 
     download_dir = setup_download_dir("mp3")
 
-    downloadItems = getDownloadItems("cache.urls.json")
+    downloadItems = cacheDownloadUrls("cache.urls.json", 5)
+
+    return # 测试缓存文件
     
     # Create a queue to communicate with the worker threads
     queue = Queue()
@@ -130,12 +151,14 @@ def main():
         worker.daemon = True
         worker.start()
     # Put the tasks into the queue as a tuple
-    for (name, url) in downloadItems.items():
-        queue.put((download_dir, url, name))
+    for (fileName, downloadUrl) in downloadItems.items():
+        queue.put((download_dir, downloadUrl, fileName))
     #download_link(download_dir, "http://image.kaolafm.net/mz/audios/201603/619e0ba5-2ec9-430f-9635-52d1f9c3b561.mp3")
     # Causes the main thread to wait for the queue to finish processing all the tasks
     queue.join()
-    print('总用时 %s'.format(name))
+    
+    endtime = time.time()
+    print('总共的时间为:', round(endtime - starttime, 2) / 60, " 分钟")
 
 if __name__ == '__main__':
     main()
