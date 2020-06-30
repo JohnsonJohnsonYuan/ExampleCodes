@@ -8,7 +8,7 @@ from threading import Thread
 import json
 
 """
-下载评书网站https://www.ysts8.net/Yshtml下某个专辑下所有MP3
+下载评书网站https://www.ishuyin.com/下某个专辑下所有MP3
 用到的包:
     requests: 请求返回html
     lxml: xpath 查找
@@ -17,7 +17,7 @@ getDownloadItems方法中配置要下载的播放列表
 """
 
 hostUrl = "https://www.ysts8.net/"
-playlistUrl = hostUrl + "/Yshtml/Ys6536.html" # 单田芳 大明英烈(全180回)全集
+playlistUrl = hostUrl + "show-1823.html" # 单田芳 大明英烈(全180回)全集
 
 def getContent(url):
     try:
